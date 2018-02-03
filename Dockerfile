@@ -51,7 +51,7 @@ RUN rm -Rf /var/www/* && \
     chown -R www-data:www-data /var/vhosts/
 ADD src/index.php /var/www/index.php
 ADD conf/nginx-site.conf /etc/nginx/sites-available/default
-ADD conf/symfony-site.conf /etc/nginx/sites-available/symfony-site.conf
+ADD conf/project-site.conf /etc/nginx/sites-available/symfony-site.conf
 RUN ln -s /etc/nginx/sites-available/symfony-site.conf /etc/nginx/sites-enabled/symfony-site.conf
 ADD conf/www.conf /etc/php/7.1/fpm/pool.d/www.conf
 ADD conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
