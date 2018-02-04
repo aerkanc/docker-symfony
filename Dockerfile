@@ -13,6 +13,7 @@ RUN apt-get install -y mcrypt \
     nginx \
     php7.1-fpm \
     php7.1-pgsql \
+    php7.1-mysql
     php7.1-intl \
     php7.1-gd \
     php7.1-memcached \
