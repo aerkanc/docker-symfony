@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-LABEL maintainer="A.Erkan ÇELİK <erkan.celik@formalistech.com>"
+LABEL maintainer="A.Erkan ÇELİK <aerkanc@gmail.com>"
 
 RUN apt-get update
 RUN apt-get upgrade -y
