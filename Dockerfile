@@ -48,17 +48,17 @@ RUN rm -Rf /etc/nginx/nginx.conf
 ADD conf/nginx.conf /etc/nginx/nginx.conf
 RUN rm -Rf /var/www/* && \
     mkdir /var/vhosts/ && \
-    chown -R www-data:www-data /var/www/ && \
-    chown -R www-data:www-data /var/vhosts/
+    chown -R www-data:www-data /var/www/
 ADD src/index.php /var/www/index.php
 ADD conf/nginx-site.conf /etc/nginx/sites-available/default
-ADD conf/project-site.conf /etc/nginx/sites-available/symfony-site.conf
-RUN ln -s /etc/nginx/sites-available/symfony-site.conf /etc/nginx/sites-enabled/symfony-site.conf
+ADD conf/project-site.conf /etc/nginx/sites-available/project-site.conf
+RUN ln -s /etc/nginx/sites-available/project-site.conf /etc/nginx/sites-enabled/project-site.conf
 ADD conf/www.conf /etc/php/7.1/fpm/pool.d/www.conf
 ADD conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 ADD conf/php.ini /etc/php/7.1/fpm/php.ini
 ADD conf/20-xdebug.ini /etc/php/7.1/fpm/conf.d/20-xdebug.ini
 RUN echo "apc.enable_cli=1" > /etc/php/7.1/cli/php.ini
+RUN chown -R www-data:www-data /var/vhosts/
 RUN chsh -s /bin/bash www-data
 
 # Add Scripts

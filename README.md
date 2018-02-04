@@ -36,7 +36,7 @@ services:
     image: "aerkanc/phpproject:latest"
     volumes:
       - "~/Workspaces/PHP/myproject:/var/vhosts/myproject"
-      - "dockerize/project-site.conf:/etc/nginx/sites-available/project-site.conf"
+      - "./dockerize/project-site.conf:/etc/nginx/sites-available/project-site.conf"
     networks:
       myproject_net:
         ipv4_address: 172.18.0.10
