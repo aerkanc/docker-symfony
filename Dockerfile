@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 LABEL maintainer="A.Erkan ÇELİK <aerkanc@gmail.com>"
-
-RUN apt-get update
+RUN apt-get update --fix-missing
 RUN apt-get upgrade -y
 RUN apt-get install -y language-pack-en
 RUN update-locale LANG=en_US.UTF-8
@@ -12,8 +11,8 @@ RUN apt-get update
 RUN apt-get install -y mcrypt \
     nginx \
     php7.1-fpm \
+    php7.1-mcrypt \
     php7.1-pgsql \
-    php7.1-mysql \
     php7.1-intl \
     php7.1-gd \
     php7.1-memcached \
@@ -34,7 +33,7 @@ RUN apt-get install -y mcrypt \
     libfreetype6-dev \
     libfontconfig1 \
     libfontconfig1-dev \
-    npm \
+    xvfb \
     wget \
     supervisor \
     git \
@@ -48,17 +47,17 @@ RUN rm -Rf /etc/nginx/nginx.conf
 ADD conf/nginx.conf /etc/nginx/nginx.conf
 RUN rm -Rf /var/www/* && \
     mkdir /var/vhosts/ && \
-    chown -R www-data:www-data /var/www/
+    chown -R www-data:www-data /var/www/ && \
+    chown -R www-data:www-data /var/vhosts/
 ADD src/index.php /var/www/index.php
 ADD conf/nginx-site.conf /etc/nginx/sites-available/default
 ADD conf/project-site.conf /etc/nginx/sites-available/project-site.conf
-RUN ln -s /etc/nginx/sites-available/project-site.conf /etc/nginx/sites-enabled/project-site.conf
+RUN ln /etc/nginx/sites-available/project-site.conf /etc/nginx/sites-enabled/project-site.conf
 ADD conf/www.conf /etc/php/7.1/fpm/pool.d/www.conf
 ADD conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 ADD conf/php.ini /etc/php/7.1/fpm/php.ini
 ADD conf/20-xdebug.ini /etc/php/7.1/fpm/conf.d/20-xdebug.ini
 RUN echo "apc.enable_cli=1" > /etc/php/7.1/cli/php.ini
-RUN chown -R www-data:www-data /var/vhosts/
 RUN chsh -s /bin/bash www-data
 
 # Add Scripts
